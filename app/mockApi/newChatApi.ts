@@ -1,41 +1,41 @@
-import { NewChat } from "../Components/NewChatForm/NewChatForm";
+import { Chat } from "../Models/Chat";
 
 const STORAGE_KEY = "newChats";
 
 // Load initial data from localStorage
-const loadChats = (): NewChat[] => {
+const loadChats = (): Chat[] => {
   const storedChats = localStorage.getItem(STORAGE_KEY);
   return storedChats ? JSON.parse(storedChats) : [];
 };
 
 // Save chats to localStorage
-const saveChats = (chats: NewChat[]): void => {
+const saveChats = (chats: Chat[]): void => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(chats));
 };
 
-let chats: NewChat[] = loadChats();
+let chats: Chat[] = loadChats();
 
 // Create
-const createChat = (chat: NewChat): NewChat => {
+const createChat = (chat: Chat): Chat => {
   chats.push(chat);
   saveChats(chats);
   return chat;
 };
 
 // Read
-const getChat = (id: string): NewChat | undefined => {
+const getChat = (id: string): Chat | undefined => {
   return chats.find((chat) => chat.id === id);
 };
 
-const getAllChats = (): NewChat[] => {
+const getAllChats = (): Chat[] => {
   return [...chats];
 };
 
 // Update
 const updateChat = (
   id: string,
-  updatedChat: Partial<NewChat>
-): NewChat | undefined => {
+  updatedChat: Partial<Chat>
+): Chat | undefined => {
   const index = chats.findIndex((chat) => chat.id === id);
   if (index !== -1) {
     chats[index] = { ...chats[index], ...updatedChat };

@@ -4,6 +4,7 @@ import { Typography, TextField, Button } from "@mui/material";
 import styles from "./Styles.module.sass";
 import { useLocation } from "../../Hooks/useLocation";
 import { chatApi } from "../../mockApi/newChatApi";
+import { Chat } from "../../Models/Chat";
 
 type FormInputs = {
   chatName: string;
@@ -22,7 +23,7 @@ export const NewChatForm: React.FC = () => {
     console.log(data);
     console.log(location);
 
-    const newChat: NewChat = {
+    const newChat: Chat = {
       ...data,
       id: `${location?.latitude ?? 0}-${location?.longitude ?? 0}`,
       country: location?.country ?? "",
@@ -63,7 +64,6 @@ export const NewChatForm: React.FC = () => {
           fullWidth
           margin="normal"
           type="number"
-          inputProps={{ min: 0, step: "any" }}
           error={!!errors.radiusInMiles}
           helperText={errors.radiusInMiles?.message}
         />
@@ -73,20 +73,4 @@ export const NewChatForm: React.FC = () => {
       </form>
     </div>
   );
-};
-
-export type NewChat = {
-  id: string;
-  chatName: string;
-  radiusInMiles: number;
-  country: string;
-  countryCode: string;
-  county: string;
-  houseNumber: string;
-  postalCode: string;
-  residential: string;
-  road: string;
-  state: string;
-  latitude: number;
-  longitude: number;
 };
