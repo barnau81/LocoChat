@@ -3,9 +3,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.scss";
 import { TopNavBar } from "@/Components/TopNavBar";
+import styles from "./layout.module.sass";
+import ClientProviders from "./ClientProviders";
 
 const inter = Inter({ subsets: ["latin"] });
-import styles from "./layout.module.sass";
 
 export const metadata: Metadata = {
   title: "My Chat App",
@@ -21,8 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} ${styles.body}`}>
         <ReactQueryProviders>
-          <TopNavBar />
-          {children}
+          <ClientProviders>
+            <TopNavBar />
+            {children}
+          </ClientProviders>
         </ReactQueryProviders>
       </body>
     </html>

@@ -14,14 +14,12 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import styles from "./TopNavBar.module.sass";
 import { HamburgerMenu, NewChatForm } from "@/Components";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export const TopNavBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleLogout = () => {
-    // TODO: Implement logout functionality
-    console.log("Logout clicked");
-  };
+  const router = useRouter();
 
   const handleAddChat = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -32,6 +30,13 @@ export const TopNavBar: React.FC = () => {
   };
 
   const open = Boolean(anchorEl);
+
+  const { data: session } = useSession();
+
+  const handleSignOut = async () => {
+    await signOut({ redirect: false });
+    router.push("/login");
+  };
 
   return (
     <AppBar position="static">
@@ -50,9 +55,11 @@ export const TopNavBar: React.FC = () => {
               <AddIcon />
             </IconButton>
           </Tooltip>
-          <Button color="inherit" onClick={handleLogout}>
-            Logout
-          </Button>
+          {session && (
+            <Button color="inherit" onClick={handleSignOut}>
+              Logout
+            </Button>
+          )}
         </div>
       </Toolbar>
       <Popover
