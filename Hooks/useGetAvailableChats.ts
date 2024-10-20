@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { chatApi } from "../mockApi/newChatApi";
 import { Chat } from "../Models/Chat";
@@ -9,21 +8,12 @@ export const useGetAvailableChats = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const {
-    data: allChats,
-    error: fetchError,
-    isLoading: isFetching,
-  } = useQuery<Chat[], Error>({
-    queryKey: ["chats"],
-    queryFn: chatApi.getAllChats,
-  });
-
   useEffect(() => {
-    const filterChats = async () => {
-      if (!allChats) return;
-
+    const fetchAndFilterChats = async () => {
       setIsLoading(true);
       try {
+        const allChats = await chatApi.getAllChats();
+
         const filteredChats = await Promise.all(
           allChats.map(async (chat) => {
             const isWithin = await isWithinRadius(
@@ -47,17 +37,8 @@ export const useGetAvailableChats = () => {
       }
     };
 
-    if (allChats && !isFetching) {
-      filterChats();
-    }
-  }, [allChats, isFetching]);
-
-  useEffect(() => {
-    if (fetchError) {
-      setError(fetchError);
-      setIsLoading(false);
-    }
-  }, [fetchError]);
+    fetchAndFilterChats();
+  }, []);
 
   return { availableChats, isLoading, error };
 };

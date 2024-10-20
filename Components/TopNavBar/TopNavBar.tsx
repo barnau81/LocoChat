@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { NewChatForm } from "../NewChatForm/NewChatForm";
-import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import styles from "./Styles.module.sass";
+import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 
 const TopNavBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -38,11 +38,7 @@ const TopNavBar: React.FC = () => {
     <AppBar position="static">
       <Toolbar className={styles.toolbar}>
         <HamburgerMenu />
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ flexGrow: 1, textAlign: "center" }}
-        >
+        <Typography variant="h6" component="div">
           My Chat App
         </Typography>
         <div>

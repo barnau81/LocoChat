@@ -4,6 +4,7 @@ const STORAGE_KEY = "newChats";
 
 // Load initial data from localStorage
 const loadChats = (): Chat[] => {
+  debugger;
   const storedChats = localStorage.getItem(STORAGE_KEY);
   return storedChats ? JSON.parse(storedChats) : [];
 };
