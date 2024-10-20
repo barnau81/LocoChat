@@ -6,13 +6,24 @@ import React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useGetAvailableChats } from "../../Hooks/useGetAvailableChats";
 import { CircularProgress, Typography } from "@mui/material";
+import { Chat } from "@/Models/Chat";
 
 export const ChatList: React.FC = () => {
   const { data: availableChats, isLoading, error } = useGetAvailableChats();
 
-  const columns: GridColDef[] = [
+  console.log(availableChats);
+
+  const columns: GridColDef<Chat>[] = [
     { field: "id", headerName: "ID", width: 100 },
-    { field: "chatName", headerName: "Chat Name", width: 150 },
+    {
+      field: "chatName",
+      headerName: "Chat Name",
+      width: 150,
+      renderCell: (params) => {
+        debugger;
+        return params.row.chatName;
+      },
+    },
     {
       field: "radiusInMiles",
       headerName: "Radius (Miles)",
@@ -36,8 +47,9 @@ export const ChatList: React.FC = () => {
     return <Typography color="error">Error: {error.message}</Typography>;
 
   return (
-    <div style={{ height: 400, width: "100%" }} className={styles.chatList}>
+    <div className={styles.chatList}>
       <DataGrid
+        className={styles.dataGrid}
         rows={availableChats}
         columns={columns}
         initialState={{
@@ -46,7 +58,7 @@ export const ChatList: React.FC = () => {
           },
         }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
+        disableRowSelectionOnClick
       />
     </div>
   );

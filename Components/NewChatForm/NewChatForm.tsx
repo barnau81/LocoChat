@@ -5,13 +5,14 @@ import styles from "./Styles.module.sass";
 import { useLocation } from "../../Hooks/useLocation";
 import { chatApi } from "../../mockApi/newChatApi";
 import { Chat } from "../../Models/Chat";
+import { v4 as uuidv4 } from "uuid";
 
 type FormInputs = {
   chatName: string;
   radiusInMiles: number;
 };
 
-export const NewChatForm: React.FC = () => {
+export const NewChatForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const { location } = useLocation();
   const {
     register,
@@ -25,7 +26,7 @@ export const NewChatForm: React.FC = () => {
 
     const newChat: Chat = {
       ...data,
-      id: `${location?.latitude ?? 0}-${location?.longitude ?? 0}`,
+      id: uuidv4(), // lets replace this with a uuid
       country: location?.country ?? "",
       countryCode: location?.countryCode ?? "",
       county: location?.county ?? "",
@@ -38,6 +39,7 @@ export const NewChatForm: React.FC = () => {
       longitude: location?.longitude ?? 0,
     };
     chatApi.createChat(newChat);
+    onClose();
   };
 
   return (

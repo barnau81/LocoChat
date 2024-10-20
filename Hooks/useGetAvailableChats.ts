@@ -20,5 +20,6 @@ export const useGetAvailableChats = () => {
       );
       return filteredChats.filter((chat): chat is Chat => chat !== null);
     },
+    refetchInterval: 5000, // Refetch every 5 seconds (adjust as needed)
   });
 };

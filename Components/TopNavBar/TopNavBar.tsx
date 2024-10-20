@@ -70,7 +70,7 @@ const TopNavBar: React.FC = () => {
         }}
       >
         <Box className={styles.modalContent}>
-          <NewChatForm />
+          <NewChatForm onClose={handleCloseModal} />
         </Box>
       </Popover>
     </AppBar>

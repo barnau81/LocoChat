@@ -1,4 +1,5 @@
 import { Chat } from "../Models/Chat";
+import { queryClient } from "../queryClient";
 
 const STORAGE_KEY = "newChats";
 
@@ -20,6 +21,7 @@ let chats: Chat[] = loadChats();
 const createChat = (chat: Chat): Chat => {
   chats.push(chat);
   saveChats(chats);
+  queryClient.invalidateQueries({ queryKey: ["availableChats"] });
   return chat;
 };
 
