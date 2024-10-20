@@ -41,7 +41,7 @@ const HamburgerMenu: React.FC = () => {
 
   const menuItems = [
     { text: "Home", icon: <HomeIcon />, href: "/" },
-    { text: "Chat", icon: <ChatIcon />, href: "/chat" },
+    { text: "Chat", icon: <ChatIcon />, href: "/Chat" },
   ];
 
   const list = () => (

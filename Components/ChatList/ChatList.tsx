@@ -8,7 +8,7 @@ import { useGetAvailableChats } from "../../Hooks/useGetAvailableChats";
 import { CircularProgress, Typography } from "@mui/material";
 
 export const ChatList: React.FC = () => {
-  const { availableChats, isLoading, error } = useGetAvailableChats();
+  const { data: availableChats, isLoading, error } = useGetAvailableChats();
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
