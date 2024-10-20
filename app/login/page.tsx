@@ -7,7 +7,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 
 const LoginPage = () => {
   const handleGoogleSignIn = () => {
-    signIn("google", { callbackUrl: "/" });
+    signIn("google", { callbackUrl: "/chat" });
   };
 
   return (

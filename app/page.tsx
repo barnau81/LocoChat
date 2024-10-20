@@ -6,7 +6,9 @@ export default function Home() {
   return (
     <ProtectedRoute>
       <div className={styles.page}>
-        <main className={styles.main}></main>
+        <main className={styles.main}>
+          <Typography variant="h1">Welcome to Loco Chat</Typography>
+        </main>
         <footer className={styles.footer}>
           <Typography>Footer placeholder</Typography>
         </footer>

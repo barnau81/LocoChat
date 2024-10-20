@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import styles from "./TopNavBar.module.sass";
-import { HamburgerMenu, NewChatForm } from "@/Components";
+import { HamburgerMenu, ChatForm } from "@/Components";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -41,26 +41,26 @@ export const TopNavBar: React.FC = () => {
   return (
     <AppBar position="static">
       <Toolbar className={styles.toolbar}>
-        <HamburgerMenu />
+        {session && <HamburgerMenu />}
         <Typography variant="h6" component="div">
           Loco Chat
         </Typography>
-        <div>
-          <Tooltip title="Add Chat" arrow>
-            <IconButton
-              color="inherit"
-              aria-label="add chat"
-              onClick={handleAddChat}
-            >
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
-          {session && (
+        {session && (
+          <div>
+            <Tooltip title="Add Chat" arrow>
+              <IconButton
+                color="inherit"
+                aria-label="add chat"
+                onClick={handleAddChat}
+              >
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
             <Button color="inherit" onClick={handleSignOut}>
               Logout
             </Button>
-          )}
-        </div>
+          </div>
+        )}
       </Toolbar>
       <Popover
         open={open}
@@ -76,7 +76,7 @@ export const TopNavBar: React.FC = () => {
         }}
       >
         <Box className={styles.modalContent}>
-          <NewChatForm onClose={handleCloseModal} />
+          <ChatForm onClose={handleCloseModal} />
         </Box>
       </Popover>
     </AppBar>

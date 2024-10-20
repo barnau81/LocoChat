@@ -5,56 +5,65 @@ const STORAGE_KEY = "newChats";
 
 // Load initial data from localStorage
 const loadChats = (): Chat[] => {
-  debugger;
   const storedChats = localStorage.getItem(STORAGE_KEY);
-  if (!storedChats) return [];
   return storedChats ? JSON.parse(storedChats) : [];
 };
 
 // Save chats to localStorage
-const saveChats = (chats: Chat[]): void => {
+const saveChats = async (chats: Chat[]): Promise<void> => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(chats));
 };
 
 let chats: Chat[] = loadChats();
 
 // Create
-const createChat = (chat: Chat): Chat => {
+const createChat = async (chat: Chat): Promise<Chat> => {
   chats.push(chat);
-  saveChats(chats);
+  await saveChats(chats);
   queryClient.invalidateQueries({ queryKey: ["availableChats"] });
   return chat;
 };
 
 // Read
-const getChat = (id: string): Chat | undefined => {
+const getChat = async (id: string): Promise<Chat | undefined> => {
   return chats.find((chat) => chat.id === id);
 };
 
-const getAllChats = (): Chat[] => {
+const getAllChats = async (): Promise<Chat[]> => {
   return [...chats];
 };
 
 // Update
-const updateChat = (
+const upsertChat = async (
   id: string,
   updatedChat: Partial<Chat>
-): Chat | undefined => {
+): Promise<Chat> => {
   const index = chats.findIndex((chat) => chat.id === id);
+  let updatedChatObject: Chat;
+
   if (index !== -1) {
-    chats[index] = { ...chats[index], ...updatedChat };
-    saveChats(chats);
-    return chats[index];
+    updatedChatObject = { ...chats[index], ...updatedChat };
+    chats[index] = updatedChatObject;
+  } else {
+    updatedChatObject = {
+      id,
+      ...updatedChat,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    } as Chat;
+    chats.push(updatedChatObject);
   }
-  return undefined;
+
+  await saveChats(chats);
+  return updatedChatObject;
 };
 
 // Delete
-const deleteChat = (id: string): boolean => {
+const deleteChat = async (id: string): Promise<boolean> => {
   const initialLength = chats.length;
   chats = chats.filter((chat) => chat.id !== id);
   if (chats.length !== initialLength) {
-    saveChats(chats);
+    await saveChats(chats);
     return true;
   }
   return false;
@@ -64,6 +73,6 @@ export const chatApi = {
   createChat,
   getChat,
   getAllChats,
-  updateChat,
+  updateChat: upsertChat,
   deleteChat,
 };

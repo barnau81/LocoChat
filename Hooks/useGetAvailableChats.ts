@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { chatApi } from "../mockApi/newChatApi";
+import { chatApi } from "../mockApi/ChatApi";
 import { Chat } from "../Models/Chat";
 import { isWithinRadius } from "../Utils/isWithinRadius";
 
