@@ -1,9 +1,10 @@
-import { Typography } from "@mui/material";
-import { ChatList } from "@/Components/ChatList/ChatList";
+"use client";
+
+import { CenteredHeader, ChatList } from "@/Components";
 const Chat: React.FC = () => {
   return (
     <div>
-      <Typography>Test</Typography>
+      <CenteredHeader headerText="Available Chats" />
       <ChatList />
     </div>
   );

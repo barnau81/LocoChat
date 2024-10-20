@@ -24,7 +24,7 @@ const StyledDrawer = styled(Drawer)(() => ({
   },
 }));
 
-const HamburgerMenu: React.FC = () => {
+export const HamburgerMenu: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer =
@@ -84,5 +84,3 @@ const HamburgerMenu: React.FC = () => {
     </>
   );
 };
-
-export default HamburgerMenu;

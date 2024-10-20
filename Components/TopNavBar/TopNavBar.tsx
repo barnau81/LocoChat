@@ -12,11 +12,10 @@ import {
   Popover,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { NewChatForm } from "../NewChatForm/NewChatForm";
-import styles from "./Styles.module.sass";
-import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
+import styles from "./TopNavBar.module.sass";
+import { HamburgerMenu, NewChatForm } from "@/Components";
 
-const TopNavBar: React.FC = () => {
+export const TopNavBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleLogout = () => {
@@ -39,7 +38,7 @@ const TopNavBar: React.FC = () => {
       <Toolbar className={styles.toolbar}>
         <HamburgerMenu />
         <Typography variant="h6" component="div">
-          My Chat App
+          Loco Chat
         </Typography>
         <div>
           <Tooltip title="Add Chat" arrow>
@@ -76,5 +75,3 @@ const TopNavBar: React.FC = () => {
     </AppBar>
   );
 };
-
-export default TopNavBar;

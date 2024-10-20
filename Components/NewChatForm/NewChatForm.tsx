@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Typography, TextField, Button } from "@mui/material";
-import styles from "./Styles.module.sass";
+import styles from "./NewChatForm.module.sass";
 import { useLocation } from "../../Hooks/useLocation";
 import { chatApi } from "../../mockApi/newChatApi";
 import { Chat } from "../../Models/Chat";

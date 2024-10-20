@@ -11,8 +11,6 @@ import { Chat } from "@/Models/Chat";
 export const ChatList: React.FC = () => {
   const { data: availableChats, isLoading, error } = useGetAvailableChats();
 
-  console.log(availableChats);
-
   const columns: GridColDef<Chat>[] = [
     { field: "id", headerName: "ID", width: 100 },
     {
