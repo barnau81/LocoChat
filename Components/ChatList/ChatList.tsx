@@ -53,7 +53,6 @@ export const ChatList: React.FC = () => {
   };
 
   const columns: GridColDef<Chat>[] = [
-    { field: "id", headerName: "ID", width: 100 },
     {
       field: "chatName",
       headerName: "Chat Name",
@@ -118,7 +117,6 @@ export const ChatList: React.FC = () => {
         className={styles.dataGrid}
         rows={availableChats}
         columns={columns}
-        checkboxSelection
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
